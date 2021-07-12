@@ -36,7 +36,7 @@ function processResponseToGetDetail() {
        // appending all div tags in the same order and adding the values in innerhtml of these divtags
 			
 
-		var l = document.createElement('li');
+		var l = document.createElement('li');     
 		l.className = "trip-settings";
 		var hour = arr[0].timeSlot.split(":");
 		if (hour[0] < 12) {

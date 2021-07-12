@@ -327,6 +327,7 @@
 .empty-img
 {
   margin-left: 7rem;
+  margin-left: 30%;
 }
 .notifications
 {
@@ -695,4 +696,18 @@
       margin-left: 96px;
       padding-left: 64px;
   }
+  .dot11
+{
+   display:inline-block;
+  font-size:1em;
+  width:2.5em;
+  height:2.5em;
+  line-height:2.5em;
+  text-align:center;
+  border-radius:50%;
+   background-color: #1B2074;
+  vertical-align:middle;
+  margin-right:1em;
+  color:white;
+}
 /**trip in progress ends**/

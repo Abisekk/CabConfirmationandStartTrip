@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 import java.time.LocalTime;
 
+
 import java.util.ArrayList;
 
 
@@ -30,12 +31,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.demo.Repository.AdminContactsRepository;
 import com.example.demo.Repository.BookingRepository;
+import com.example.demo.Repository.DriverNotificationRepository;
+import com.example.demo.Repository.DriverProfileRepository;
+import com.example.demo.Tripdetails.AdminContacts;
 import com.example.demo.Tripdetails.BookingRequest;
+import com.example.demo.Tripdetails.DriverProfile;
+import com.example.demo.Tripdetails.TripAssignedDetails;
 import com.example.demo.Tripdetails.TripCabInfo;
 //import com.example.demo.Repository.TripRepository;
 import com.example.demo.Tripdetails.Tripdetails;
+
+//import com.example.demo.repository.DriverNotificationRepository;
 //import com.example.demo.entity.TripCabInfo;
 import com.example.demo.service.TripService;
 
@@ -44,7 +52,17 @@ public class Controller {
 
 	@Autowired
 	TripService service;
+	@Autowired
 	private BookingRepository repo;
+	
+	@Autowired
+	private DriverNotificationRepository repofordrivernotification;
+	
+	@Autowired
+	private DriverProfileRepository repos;
+	
+	@Autowired
+	private AdminContactsRepository reposs;
 	//ArrayList n=new ArrayList();
 //	List<Students> student=Arrays.asList();
 	
@@ -79,11 +97,6 @@ public List<BookingRequest> getbytripid(@PathVariable("TripId") long srchid){
 
 
 
-
-
-
-
-
      @PutMapping("/update/{employeeId}")
      public ResponseEntity<BookingRequest> updatebyid(@PathVariable("employeeId")Long id ,@RequestBody BookingRequest entryset){
      Optional<BookingRequest> entity=repo.findById(id);
@@ -99,16 +112,6 @@ public List<BookingRequest> getbytripid(@PathVariable("TripId") long srchid){
      		return ResponseEntity.status(HttpStatus.OK).body(bookingrequest);
      		}
     
-  		
-
-       
-
-       
-    
-       
-
-       
-
      
      @PutMapping("/update/for/{TripId}")
      public ResponseEntity<BookingRequest> updatebytripid(@PathVariable("TripId")Long id,@RequestBody List<BookingRequest> entryset){
@@ -118,26 +121,7 @@ public List<BookingRequest> getbytripid(@PathVariable("TripId") long srchid){
       	 
     	return ResponseEntity.status(HttpStatus.OK).body(entryset1);
        }
-         
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
- 
-     
-     
-     
-     
-     
-       
-       
+        
 @GetMapping(path = "/bookings/status/{TripId}")
 public ResponseEntity<List<BookingRequest>> getFilteredBookings(@PathVariable("TripId") long tripId)
 {
@@ -147,17 +131,6 @@ public ResponseEntity<List<BookingRequest>> getFilteredBookings(@PathVariable("T
 	return ResponseEntity.status(HttpStatus.OK).body(requests);
 }
 
-
-
-
-
-
-
-
-
-
-
-
 @PutMapping("/update/for/show/{TripId}")
 public ResponseEntity<BookingRequest> updatebytripidforshow(@PathVariable("TripId")Long id ,@RequestBody List<BookingRequest> entryset){
 	 System.out.print(entryset);
@@ -166,13 +139,6 @@ public ResponseEntity<BookingRequest> updatebytripidforshow(@PathVariable("TripI
  	 
 	return ResponseEntity.status(HttpStatus.OK).body(entryset1);
 }
-  
-
-
-
-
-
-
 
 
 @PutMapping("/employee/status/{employeeId}/{tripId}")
@@ -183,8 +149,6 @@ public ResponseEntity<BookingRequest> storeEmployeeStatus(@PathVariable("employe
 	
 	return ResponseEntity.status(HttpStatus.OK).body(savedStatus);
 }
-
-
 //For updating the end status of cab
  @PutMapping("/updateme/{tripCabId}")
    public ResponseEntity<TripCabInfo> updatebytripCabID(@PathVariable("tripCabId")long tripCabID){
@@ -209,19 +173,6 @@ public ResponseEntity<BookingRequest> storeEmployeeStatus(@PathVariable("employe
 	return ResponseEntity.status(HttpStatus.OK).body(savedStatus);
    }
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
  @GetMapping(path = "/tripdetails/{id}")
 	public ResponseEntity<List<TripCabInfo>> getTripDetails(@PathVariable("id")long tripCabID)
 	{
@@ -230,7 +181,68 @@ public ResponseEntity<BookingRequest> storeEmployeeStatus(@PathVariable("employe
 		return ResponseEntity.status(HttpStatus.OK).body(tripdetails);
 	}
 
- }
+ 
+
+//this is kishore code
+ //FOR DRIVER'S NOTIFICATION
+@GetMapping(path="/notification")
+public List<TripCabInfo> getNotification() {
+	 return this.repofordrivernotification.findAll();
+}
+
+@GetMapping(path="/notification/{cabNumber}")
+public TripCabInfo getNotificationByCabNumber(@PathVariable String cabNumber) {
+	TripCabInfo tripObj = this.repofordrivernotification.getTripAssignedDetailsByCabNumber(cabNumber);
+	return tripObj;
+}
 
 
 
+//FOR DRIVER PROFILES
+
+@GetMapping(path="/driverProfile")
+public List<DriverProfile> getDriverProfile() {
+	 return this .repos.findAll();
+}
+
+
+@GetMapping(path="/driverProfile/{cabNumber}")
+public DriverProfile getProfileByCabNumber(@PathVariable String cabNumber) {
+	return this.repos.getDriverProfileByCabNumber(cabNumber);
+}
+
+//FOR ADMIN CONTACT DETAILS
+
+@GetMapping(path="/adminContactDetails")
+public List<AdminContacts> getAdminContacts(){
+	return this.reposs.findAll();
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

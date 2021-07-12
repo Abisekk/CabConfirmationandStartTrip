@@ -30,7 +30,7 @@ public class TripCabInfo {
 	String dropPoint;
 
 	LocalDate dateOfTravel;
-	LocalDateTime timeSlot;
+	LocalTime timeSlot;
 	int totalSeats;
 	int remainingSeats;
 	int allocatedSeats;
