@@ -180,8 +180,13 @@ public ResponseEntity<BookingRequest> storeEmployeeStatus(@PathVariable("employe
 		
 		return ResponseEntity.status(HttpStatus.OK).body(tripdetails);
 	}
-
  
+//For getting server time-startTime
+@GetMapping("getServerTime/{tripCabID}")
+public TripCabInfo getBookingTime(@PathVariable("tripCabID") long tripCabID)
+{
+return this.service.getBookingTime(tripCabID);
+}
 
 //this is kishore code
  //FOR DRIVER'S NOTIFICATION

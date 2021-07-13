@@ -131,7 +131,12 @@ public TripCabInfo updateTripforOngoing(long tripCabID) {
 	return triprepo.save(status);
 	
 }
-
+//For getting server time-startTime
+public TripCabInfo getBookingTime(long tripCabID) {
+//TODO Auto-generated method stub
+Optional<TripCabInfo> save= triprepo.findById(tripCabID);
+return save.get();
+}
 
 
 

@@ -137,7 +137,7 @@ function adminContacts() {
 			response = JSON.parse(this.responseText);
 			for (var i = 0; i < response.length; i++) {
 
-				document.getElementById
+		
 				document.getElementById("adminContact" + i).innerHTML = "<label class='float-start mb-3' id='contacts1'><a class='link contact-number' href='#'>" + response[i].contactNumber + "</a>" + "  -  " + response[i].adminName + "</label>";
 
 			}

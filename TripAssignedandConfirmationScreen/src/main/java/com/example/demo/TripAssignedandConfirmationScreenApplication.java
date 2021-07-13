@@ -72,7 +72,7 @@ public class TripAssignedandConfirmationScreenApplication {
 		 
 	 @Override
 	 public void run(String... args) throws Exception {
-		 TripCabInfo tripdetails = new TripCabInfo(10001,"TN8S6677",10,"Bayline","Tambaram","Shollingnalur",LocalDate.now(),LocalTime.now(),10,2,8,LocalTime.of(10, 30),null,"Assigned",null,null,null,null,0);
+		// TripCabInfo tripdetails = new TripCabInfo(10001,"TN8S6677",10,"Bayline","Tambaram","Shollingnalur",LocalDate.now(),LocalTime.now(),10,2,8,LocalTime.of(10, 30),null,"Assigned",null,null,null,null,0);
 
 	//---------------------------------------------------------------------------------------//		
 		 AdminContacts contacts1 = new AdminContacts("+91- 123456789", "Ragahavan",true);
@@ -85,8 +85,9 @@ public class TripAssignedandConfirmationScreenApplication {
 			//DriverProfileRepos.save(profile);
 //		 DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
 //			Date date = df.parse("12-10-2025");
-//			
-			
+		TripCabInfo tripdetails = new TripCabInfo(10001,"TN8S6677",10,"Bayline","Tambaram","Shollingnalur",LocalDate.now(),LocalTime.now(),10,2,8,LocalTime.of(10, 35),null,"Assigned",null,null,null,null,0);
+		//TripCabInfo tripdetails = new TripCabInfo(10001,"TN8S6677",10,"Bayline","Tambaram","Shollingnalur",LocalDate.now(),LocalTime.now(),10,2,8,LocalTime.of(10, 30),null,"Assigned",null,null,null,null,0);
+			triprepo.save(tripdetails);
 		 
 		 
 			//jwt:

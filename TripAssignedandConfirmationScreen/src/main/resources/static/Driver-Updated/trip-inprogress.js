@@ -2,8 +2,11 @@
  * "http://localhost:8080//bookings/status" +id+ "/" + status
  */
 // var id = 101;
+window.onload = screenOnLoadCalls;
 var xhr = new XMLHttpRequest();
-window.onload = tripInprogress;
+var xhrTime = new XMLHttpRequest();
+var time;
+//window.onload = tripInprogress;
 var queryStr = window.location.search;
 	
 	var id = queryStr.split("=")[1];  
@@ -15,6 +18,83 @@ var show = "show";
 var noshow ="noshow";
 var arr;
 var startTime;
+function screenOnLoadCalls(){
+   
+    getServerTime();
+    tripInprogress();
+} 
+function getServerTime(){
+    xhrTime.open("GET", "http://localhost:8080/getServerTime/"+id, true);
+
+    xhrTime.onreadystatechange = processServerTimeResponse;
+
+    xhrTime.send(null);
+}
+
+ 
+
+function processServerTimeResponse(){
+    if (xhrTime.readyState == 4 && xhrTime.status == 200) {
+          time = JSON.parse(xhrTime.responseText);
+        
+        var p1 = document.createElement("p");
+        p1.className = "trip-started";
+       
+        //p1.innerHTML = "Trip Started At " + hour[0] + ":" + hour[1];
+        var hour =time.startTime.split(":");
+        if (hour[0] < 12) {
+            if (hour[0] >= 10) {
+
+ 
+
+                p1.innerHTML = "Trip Started At " + hour[0] + ":" + hour[1] + " AM";
+
+            }
+            else {
+                if (hour[0] == 00) {
+                    p1.innerHTML = "Trip Started At " + "12" + ":" + hour[1] + " AM";
+                }
+
+
+                else {
+                    p1.innerHTML = "Trip Started At " + "0" + hour[0] + ":" + hour[1] + " AM";
+                }
+            }
+        }
+        else {
+            var hr = hour[0] - 12;
+            if (hour[0] >= 10) {
+
+                p1.innerHTML = "Trip Started At " + hr + ":" + hour[1] + " PM";
+
+
+            }
+            else {
+                p1.innerHTML = "Trip Started At " + "0" + hr + ":" + hour[1] + " PM";
+            }
+        }
+        document.getElementById("triptime").appendChild(p1);
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function tripInprogress() {
 	xhr.open("GET", "http://localhost:8080/bookings/status/"+id , true);
 
@@ -22,11 +102,8 @@ function tripInprogress() {
 
 	xhr.send(null);
 }
-
 function processResponse() {
-
 	if (xhr.readyState == 4 && xhr.status == 200) {
-
 
 		arr = JSON.parse(xhr.responseText);
 		count = arr.length;
@@ -74,46 +151,13 @@ function processResponse() {
 
 
 
-		var p1 = document.createElement("p");
-		p1.className = "trip-started";
-		p1.innerHTML = "Trip Started At " + hour[0] + ":" + hour[1];
-
-		var hour = arr[0].timeSlot.split(":");
-		if (hour[0] < 12) {
-			if (hour[0] >= 10) {
-
-				p1.innerHTML = "Trip Started At " + hour[0] + ":" + hour[1] + " AM";
-
-			}
-			else {
-				if (hour[0] == 00) {
-					p1.innerHTML = "Trip Started At " + "12" + ":" + hour[1] + " AM";
-				}
-
-				else {
-					p1.innerHTML = "Trip Started At " + "0" + hour[0] + ":" + hour[1] + " AM";
-				}
-			}
-		}
-		else {
-			var hr = hour[0] - 12;
-			if (hour[0] >= 10) {
-
-				p1.innerHTML = "Trip Started At " + hr + ":" + hour[1] + " PM";
-
-			}
-
-
-			else {
-				p1.innerHTML = "Trip Started At " + "0" + hr + ":" + hour[1] + " PM";
-			}
-		}
+		
 
 		document.getElementById("trip").appendChild(l);
 		document.getElementById("trip").appendChild(l2);
 		document.getElementById("trip").appendChild(l3);
 
-		document.getElementById("triptime").appendChild(p1);
+		
 
 
 
@@ -275,7 +319,7 @@ function reached() {
 
 	xhrReached.send(null);
 }
-f
+
 
 function ok() {
 alert(id); 

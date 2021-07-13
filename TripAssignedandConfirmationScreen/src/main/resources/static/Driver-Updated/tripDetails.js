@@ -187,11 +187,22 @@ var showlist=new Array();
 
 
 function startTrip() {
-//ongoingForTripCabInfo();
+
 starttripforshow();
    //-- rohit
 
-	for (var i = 0; i < count; i++) {
+
+	ongoingForTripCabInfo();
+	
+onlyforNoshow();
+	
+
+}
+	
+	
+	function onlyforNoshow(){
+		
+		for (var i = 0; i < count; i++) {
 		var div = document.getElementById("divid");
 		var radiv = document.getElementById("radio-" + (i + (i + 1)));
 
@@ -214,7 +225,7 @@ starttripforshow();
 
 	}
 	
-	ongoingForTripCabInfo();
+	//ongoingForTripCabInfo();
 	
 
 var url = "http://localhost:8080/update/for/" + id;
@@ -238,7 +249,40 @@ function processResponseToGetNoShow() {
 
 
 	}
-}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 
@@ -346,7 +390,7 @@ function processResponseToGetShow() {
 }
 
 function cancelTripFunction() {
-			startTrip();
+	onlyforNoshow();
 			window.location.href = 'No Trip Assigned Page.html'
 
 
